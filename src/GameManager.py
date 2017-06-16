@@ -3,15 +3,17 @@ Created on Jun 15, 2017
 
 @author: KrzyMoose
 ''' 
-import Utility
-from Player import Player
-from GameBoard import GameBoard
+from src import Utility
+from src.Player import Player
+from src.GameBoard import GameBoard
 
 '''
 Constants
 '''
 COMMAND_QUIT = "quit"
 COMMAND_PASS_TURN = "pass"
+COMMAND_BOARD = "board"
+COMMAND_STATUS = "status"
 
 '''
 Global Variables
@@ -54,7 +56,18 @@ def quit_game():
 
 def pass_turn():
     get_current_player().end_turn()
-    increment_current_player()    
+    increment_current_player()
+    
+def print_board():
+    global game_board
+    game_board.print()
+
+def print_status():
+    global current_player, players
+    for i in range(len(players)):
+        if(i != current_player):
+            players[i].print(False)
+    get_current_player().print(True)
 
 '''
 Game Actions
@@ -77,6 +90,8 @@ def build_command_map():
     commands = dict()
     commands[COMMAND_QUIT] = quit_game
     commands[COMMAND_PASS_TURN] = pass_turn
+    commands[COMMAND_BOARD] = print_board
+    commands[COMMAND_STATUS] = print_status
 
 def build_game_board():
     global game_board

@@ -3,15 +3,16 @@ Created on Jun 15, 2017
 
 @author: KrzyMoose
 '''
-import DeckFactory
-from Hand import Hand
+from src import DeckFactory
+from src.Hand import Hand
 
 class Player:
     
     def __init__(self, name):
         self._name = name
-        self._current_power = 0;
-        self._current_runes = 0;
+        self._current_power = 0
+        self._current_runes = 0
+        self._honor = 0
         self._deck = DeckFactory.build_player_deck()
         self._hand = Hand()
     
@@ -31,9 +32,21 @@ class Player:
     def get_name(self):
         return self._name
     
+    def get_honor(self):
+        return self._honor
+    
+    def get_runes(self):
+        return self._current_runes
+    
+    def get_power(self):
+        return self._current_power
+    
     def end_turn(self):
         self._current_power = 0;
         self._current_runes = 0;
-        
-    def __str__(self):
-        return "Player %s" % (self._name)
+    
+    def print(self, is_print_full):
+        print("Player " + self.get_name() + " - " + str(self.get_honor()) + " honor")
+        print(str(self._hand.get_size()) + " cards in hand")
+        if(is_print_full):
+            print(str(self.get_power()) + " runes; " + str(self.get_runes()) + " power")

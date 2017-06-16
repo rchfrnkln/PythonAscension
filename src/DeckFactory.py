@@ -8,6 +8,7 @@ from src.cards.Militia import Militia
 from src.cards.HeavyInfantry import HeavyInfantry
 from src.cards.Mystic import Mystic
 from src.cards.ArhaInitiate import ArhaInitiate
+from src.Deck import Deck
 
 STARTING_APPRENTICE = 7
 STARTING_MILITIA = 3
@@ -19,23 +20,23 @@ def build_player_deck():
     for _ in range(STARTING_APPRENTICE):
         cards.append(Apprentice())
     for _ in range(STARTING_MILITIA):
-        cards.apprent(Militia())
-    return cards
+        cards.append(Militia())
+    return Deck(cards)
 
 def build_center_deck():
     cards = []
     for _ in range(60):
         cards.append(ArhaInitiate())
-    return cards
+    return Deck(cards)
 
 def build_mystic_deck():
     cards = []
     for _ in range(STARTING_HEAVY):
-        cards.append(HeavyInfantry())
-    return cards
+        cards.append(Mystic())
+    return Deck(cards)
 
 def build_heavy_deck():
     cards = []
     for _ in range(STARTING_MYSTIC):
-        cards.append(Mystic)
-    return cards
+        cards.append(HeavyInfantry())
+    return Deck(cards)

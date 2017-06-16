@@ -15,6 +15,11 @@ class Hand:
     def add_card_at_index(self, card, index):
         self._cards.insert(index, card)
     
+    def get_card_at_index(self, index):
+        if(index >= len(self._cards)):
+            raise Exception("Invalid index")
+        return self._cards[index]
+        
     def remove_card(self, index):
         if(index >= len(self._cards)):
             raise Exception("Invalid index")

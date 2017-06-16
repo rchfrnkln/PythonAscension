@@ -8,7 +8,7 @@ from src.cards.Card import Card, CardType, Faction
 class Monster(Card):
     
     def __init__(self, name, cost, honor):
-        Card.__init__(name, cost, CardType.MONSTER, Faction.NONE, honor)
+        Card.__init__(self, name, cost, CardType.MONSTER, Faction.NONE, honor)
         
     def defeat(self):
         print(Card.get_name(self) + " defeated.")

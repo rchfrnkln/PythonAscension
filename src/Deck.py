@@ -4,7 +4,7 @@ Created on Jun 15, 2017
 @author: KrzyMoose
 '''
 import random
-import Hand
+from src.Hand import Hand
 
 class Deck:
     
@@ -15,6 +15,9 @@ class Deck:
         
     def draw_card(self):
         return self._deck.pop()
+    
+    def peek(self):
+        return self._deck[0]
         
     def put_card_on_top(self, card):
         self._deck.append(card)

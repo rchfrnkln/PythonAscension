@@ -3,10 +3,10 @@ Created on Jun 15, 2017
 
 @author: KrzyMoose
 '''
-import DeckFactory
+from src import DeckFactory
 from src.cards.Cultist import Cultist
-import Utility
-import Hand
+from src import Utility
+from src.Hand import Hand
 
 class GameBoard:
 
@@ -22,7 +22,7 @@ class GameBoard:
         self._cultist = Cultist()
         for _ in range(6):
             self.draw_card()
-            
+        
     def draw_card(self):
         card = self._deck.draw_card()
         self._board.add_card(card)
@@ -70,6 +70,13 @@ class GameBoard:
         except Exception as e:
             self._board.add_card_at_index(card, index)
             raise e
+    
+    def print(self):
+        for i in range(self._board.get_size()):
+            print(str(i) + ". " + self._board.get_card_at_index(i).get_name())
+        print(str(GameBoard.MYSTIC_INDEX) + ". " + self._mystics.peek().get_name())
+        print(str(GameBoard.HEAVY_INDEX) + ". " + self._heavies.peek().get_name())
+        print(str(GameBoard.CULTIST_INDEX) + ". " + self._cultist.get_name())
     
     def is_valid_index(self, index):
         if(index < 0):
