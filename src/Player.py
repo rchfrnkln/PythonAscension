@@ -44,6 +44,15 @@ class Player:
         self._deck.add_to_graveyard(card)
         print(self.get_name() + " has acquired " + card.get_name() + ".")
     
+    def add_card_to_graveyard(self, card):
+        self._deck.add_to_graveyard(card)
+    
+    def banish_card_from_hand(self, index):
+        self._hand.remove_card(index)
+    
+    def print_hand(self):
+        self._hand.print()
+    
     def get_name(self):
         return self._name
     
