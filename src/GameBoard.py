@@ -3,10 +3,10 @@ Created on Jun 15, 2017
 
 @author: KrzyMoose
 '''
-from src import DeckFactory
+import DeckFactory
 from src.cards.Cultist import Cultist
-from src import Utility
-from src.Hand import Hand
+import Utility
+from Hand import Hand
 
 class GameBoard:
 

@@ -5,7 +5,7 @@ Created on Jun 15, 2017
 '''
 from src.cards.Card import Faction
 from src.cards.Hero import Hero
-from src import GameManager
+import GameManager
 
 class Apprentice(Hero):
     

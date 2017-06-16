@@ -8,10 +8,10 @@ from src.cards.Militia import Militia
 from src.cards.HeavyInfantry import HeavyInfantry
 from src.cards.Mystic import Mystic
 from src.cards.ArhaInitiate import ArhaInitiate
-from src.Deck import Deck
+from Deck import Deck
 
-STARTING_APPRENTICE = 7
-STARTING_MILITIA = 3
+STARTING_APPRENTICE = 8
+STARTING_MILITIA = 2
 STARTING_MYSTIC = 30
 STARTING_HEAVY = 29
 

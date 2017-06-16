@@ -48,3 +48,7 @@ class Card:
     # Fat interface
     def defeat(self):
         raise Exception("Can't defeat.")
+    
+    # Fat interface
+    def acquire(self):
+        raise Exception("Can't acquire.")

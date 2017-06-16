@@ -3,7 +3,7 @@ Created on Jun 15, 2017
 
 @author: KrzyMoose
 '''
-from src import GameManager
+import GameManager
 
 def main():
     GameManager.initialize()

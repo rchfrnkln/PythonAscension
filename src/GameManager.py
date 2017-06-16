@@ -3,9 +3,9 @@ Created on Jun 15, 2017
 
 @author: KrzyMoose
 ''' 
-from src import Utility
-from src.Player import Player
-from src.GameBoard import GameBoard
+import Utility
+from Player import Player
+from GameBoard import GameBoard
 
 '''
 Constants
@@ -14,13 +14,15 @@ COMMAND_QUIT = "quit"
 COMMAND_PASS_TURN = "pass"
 COMMAND_BOARD = "board"
 COMMAND_STATUS = "status"
+COMMAND_STATUS = "cast"
+COMMAND_DEFEAT = "defeat"
 
 '''
 Global Variables
 '''
 players = None
 current_player = None
-isRun = None
+is_run = None
 commands = None
 game_board = None
 
@@ -28,16 +30,16 @@ game_board = None
 Public Functions
 '''
 def initialize():
-    global isRun, current_player
-    isRun = True
+    global is_run, current_player
+    is_run = True
     current_player = 0
     build_players()
     build_command_map()
     build_game_board()
 
 def run():
-    global isRun, current_player, commands
-    while(isRun):
+    global is_run, current_player, commands
+    while(is_run):
         try:
             command = input(get_current_player().get_name() + "'s turn. Enter a command: ")
             if(commands.__contains__(command) == False):
@@ -51,8 +53,8 @@ def run():
 User Commands
 '''
 def quit_game():
-    global isRun
-    isRun = False
+    global is_run
+    is_run = False
 
 def pass_turn():
     get_current_player().end_turn()
@@ -68,6 +70,13 @@ def print_status():
         if(i != current_player):
             players[i].print(False)
     get_current_player().print(True)
+
+def cast_card():
+    
+    pass
+
+def defeat_monster():
+    pass
 
 '''
 Game Actions
@@ -92,6 +101,8 @@ def build_command_map():
     commands[COMMAND_PASS_TURN] = pass_turn
     commands[COMMAND_BOARD] = print_board
     commands[COMMAND_STATUS] = print_status
+    commands[COMMAND_CAST] = cast_card
+    commands[COMMAND_DEFEAT] = defeat_monster
 
 def build_game_board():
     global game_board
