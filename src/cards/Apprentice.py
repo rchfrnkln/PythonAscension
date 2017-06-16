@@ -19,5 +19,5 @@ class Apprentice(Hero):
         Hero.__init__(self, Apprentice.NAME, Apprentice.COST, Apprentice.FACTION, Apprentice.HONOR)
         
     def cast(self):
-        GameManager.add_power(Apprentice.RUNES_ADDED)
+        GameManager.add_runes(Apprentice.RUNES_ADDED)
         return Hero.cast(self)

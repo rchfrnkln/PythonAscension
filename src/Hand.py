@@ -30,8 +30,6 @@ class Hand:
     def get_size(self):
         return len(self._cards)
     
-    def __str__(self):
-        s = ""
+    def print(self):
         for i in range(len(self._cards)):
-            s += str(i) + ". " + self._cards[i].get_name() + "\n"
-        return s
+            print(str(i) + ". " + self._cards[i].get_name())

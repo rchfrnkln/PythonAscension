@@ -5,7 +5,6 @@ Created on Jun 15, 2017
 '''
 import DeckFactory
 from src.cards.Cultist import Cultist
-import Utility
 from Hand import Hand
 
 class GameBoard:
@@ -26,16 +25,27 @@ class GameBoard:
     def draw_card(self):
         card = self._deck.draw_card()
         self._board.add_card(card)
+    
+    def get_card(self, index):
+        self.assert_is_valid_index(index)
         
-    def acquire_card(self):
-        index = Utility.read_int("Enter the index of a card to acquire: ")
-        if(self.is_valid_index(index) == False):
-            raise Exception("Invalid index.")
+        if(index == self.MYSTIC_INDEX):
+            return self._mystics.peek()
+        if(index == self.HEAVY_INDEX):
+            return self._heavies.peek()
+        if(index == self.CULTIST_INDEX):
+            return self._cultist
+        return self._board.get_card_at_index(index)
+        
+    def acquire_card(self, index):
+        self.assert_is_valid_index(index)
         
         if(index == self.MYSTIC_INDEX):
             return self.acquire_mystic()
         if(index == self.HEAVY_INDEX):
             return self.acquire_heavy()
+        if(index == self.CULTIST_INDEX):
+            self._cultist.acquire()
         
         card = self._board.remove_card(index)
         try:
@@ -54,10 +64,8 @@ class GameBoard:
         card = self._mystics.draw_card()
         return card
         
-    def defeat_card(self):
-        index = Utility.read_int("Enter the index of a Monster to defeat: ")
-        if(self.is_valid_index(index) == False):
-            raise Exception("Invalid index.")
+    def defeat_card(self, index):
+        self.assert_is_valid_index(index)
         
         if(index == self.CULTIST_INDEX):
             return self._cultist.defeat()
@@ -77,6 +85,10 @@ class GameBoard:
         print(str(GameBoard.MYSTIC_INDEX) + ". " + self._mystics.peek().get_name())
         print(str(GameBoard.HEAVY_INDEX) + ". " + self._heavies.peek().get_name())
         print(str(GameBoard.CULTIST_INDEX) + ". " + self._cultist.get_name())
+    
+    def assert_is_valid_index(self, index):
+        if(self.is_valid_index(index) == False):
+            raise Exception("Invalid index.")
     
     def is_valid_index(self, index):
         if(index < 0):

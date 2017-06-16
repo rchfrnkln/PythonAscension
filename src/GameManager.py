@@ -14,8 +14,9 @@ COMMAND_QUIT = "quit"
 COMMAND_PASS_TURN = "pass"
 COMMAND_BOARD = "board"
 COMMAND_STATUS = "status"
-COMMAND_STATUS = "cast"
+COMMAND_CAST = "cast"
 COMMAND_DEFEAT = "defeat"
+COMMAND_ACQUIRE = "acquire"
 
 '''
 Global Variables
@@ -46,7 +47,7 @@ def run():
                 raise Exception("Invalid command.")
             commands[command]()
         except Exception as e:
-            print("Error " + str(e))
+            print("Error: " + str(e))
     print("Exiting.")
 
 '''
@@ -61,8 +62,7 @@ def pass_turn():
     increment_current_player()
     
 def print_board():
-    global game_board
-    game_board.print()
+    get_game_board().print()
 
 def print_status():
     global current_player, players
@@ -72,11 +72,27 @@ def print_status():
     get_current_player().print(True)
 
 def cast_card():
-    
-    pass
+    index = Utility.read_int("Enter the index of a card to cast it: ")
+    card = get_current_player().get_card_from_hand(index)
+    card.cast()
+
+def acquire_card():
+    index = Utility.read_int("Enter the index of a card to acquire: ")
+    card = get_game_board().get_card(index)
+    if(has_enough_resource(card, get_current_player().get_runes()) == False):
+        raise Exception("Not enough runes.")
+    card = get_game_board().acquire_card(index)
+    get_current_player().remove_runes(card.get_cost())
+    get_current_player().acquire_card(card)
 
 def defeat_monster():
-    pass
+    index = Utility.read_int("Enter the index of a Monster to deafeat: ")
+    card = get_game_board().get_card(index)
+    if(has_enough_resource(card, get_current_player().get_power()) == False):
+        raise Exception("Not enough power.")
+    honor = get_game_board().defeat_card(index)
+    get_current_player().remove_power(card.get_cost())
+    get_current_player().add_honor(honor)    
 
 '''
 Game Actions
@@ -103,6 +119,7 @@ def build_command_map():
     commands[COMMAND_STATUS] = print_status
     commands[COMMAND_CAST] = cast_card
     commands[COMMAND_DEFEAT] = defeat_monster
+    commands[COMMAND_ACQUIRE] = acquire_card
 
 def build_game_board():
     global game_board
@@ -125,3 +142,12 @@ def increment_current_player():
 def get_current_player():
     global current_player, players
     return players[current_player]
+
+def get_game_board():
+    global game_board
+    return game_board
+
+def has_enough_resource(card, resource):
+    if(card.get_cost() > resource):
+        return False
+    return True
