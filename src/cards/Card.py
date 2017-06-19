@@ -52,3 +52,11 @@ class Card:
     # Fat interface
     def acquire(self):
         raise Exception("Can't acquire.")
+    
+    # Fat interface
+    def tap(self):
+        raise Exception("Can't tap.")
+    
+    # Fat interface
+    def untap(self):
+        raise Exception("Can't untap.")

@@ -9,7 +9,7 @@ import GameManager
 
 class AsceticOfTheLidlessEye(Hero):
     
-    NAME = "Ascetic of the Lidless Eyee"
+    NAME = "Ascetic of the Lidless Eye"
     COST = 5
     FACTION = Faction.ENLIGHTENED
     HONOR = 2

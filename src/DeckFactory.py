@@ -11,6 +11,8 @@ from src.cards.ArhaInitiate import ArhaInitiate
 from Deck import Deck
 from src.cards.ArbiterOfThePrecipice import ArbiterOfThePrecipice
 from src.cards.AsceticOfTheLidlessEye import AsceticOfTheLidlessEye
+from src.cards.ArhaTemplar import ArhaTemplar
+from src.cards.Muramasa import Muramasa
 
 STARTING_APPRENTICE = 8
 STARTING_MILITIA = 2
@@ -20,6 +22,8 @@ STARTING_HEAVY = 29
 STARTING_ARBITER = 2
 STARTING_ARHA_INITIATE = 3
 STARTING_ASCETIC = 2
+STARTING_ARHA_TEMPLAR = 2
+STARTING_MURAMASA = 1
 
 def build_player_deck():
     cards = []
@@ -37,6 +41,10 @@ def build_center_deck():
         cards.append(ArbiterOfThePrecipice())
     for _ in range(STARTING_ASCETIC):
         cards.append(AsceticOfTheLidlessEye())
+    for _ in range(STARTING_ARHA_TEMPLAR):
+        cards.append(ArhaTemplar())
+    for _ in range(STARTING_MURAMASA):
+        cards.append(Muramasa())
     return Deck(cards)
 
 def build_mystic_deck():

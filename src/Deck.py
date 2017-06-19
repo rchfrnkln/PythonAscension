@@ -16,6 +16,8 @@ class Deck:
     def draw_card(self):
         if(self.get_size() == 0):
             self.shuffle_graveyard_into_deck()
+        if(self.get_size() == 0):
+            return None
         return self._deck.pop()
     
     def peek(self):

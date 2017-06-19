@@ -24,6 +24,8 @@ class GameBoard:
         
     def draw_card(self):
         card = self._deck.draw_card()
+        if(card == None):
+            return
         self._board.add_card(card)
     
     def get_card(self, index):
@@ -81,7 +83,7 @@ class GameBoard:
     
     def print(self):
         for i in range(self._board.get_size()):
-            print(str(i) + ". " + self._board.get_card_at_index(i).get_name())
+            print(str(i) + ". " + self._board.get_card_at_index(i).get_name() + " - " + str(self._board.get_card_at_index(i).get_cost()))
         print(str(GameBoard.MYSTIC_INDEX) + ". " + self._mystics.peek().get_name())
         print(str(GameBoard.HEAVY_INDEX) + ". " + self._heavies.peek().get_name())
         print(str(GameBoard.CULTIST_INDEX) + ". " + self._cultist.get_name())
@@ -91,8 +93,14 @@ class GameBoard:
             raise Exception("Invalid index.")
     
     def is_valid_index(self, index):
+        if(index == GameBoard.MYSTIC_INDEX):
+            return True
+        if(index == GameBoard.HEAVY_INDEX):
+            return True
+        if(index == GameBoard.CULTIST_INDEX):
+            return True;
         if(index < 0):
             return False
-        if(index > 8):
+        if(index >= self._board.get_size()):
             return False
         return True

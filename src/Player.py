@@ -5,6 +5,7 @@ Created on Jun 15, 2017
 '''
 import DeckFactory
 from Hand import Hand
+from InPlay import InPlay
 
 class Player:
     
@@ -15,6 +16,7 @@ class Player:
         self._honor = 0
         self._deck = DeckFactory.build_player_deck()
         self._hand = Hand()
+        self._in_play = InPlay()
         self.end_turn()
     
     def remove_power(self, power):
@@ -37,6 +39,8 @@ class Player:
         
     def draw_card(self):
         card = self._deck.draw_card()
+        if(card == None):
+            return
         self._hand.add_card(card)
         print(self.get_name() + " now has " + str(self._hand.get_size()) + " cards in hand.")
     
@@ -66,11 +70,18 @@ class Player:
         return self._current_power
     
     def get_card_from_hand(self, index):
+        return self._hand.get_card_at_index(index)
+    
+    def remove_card_from_hand(self, index):
         return self._hand.remove_card(index)
+    
+    def add_card_to_hand(self, card, index):
+        self._hand.add_card_at_index(card, index) 
     
     def end_turn(self):
         self._current_power = 0;
         self._current_runes = 0;
+        self._in_play.reset()
         while(self._hand.get_size() != 0):
             self._deck.add_to_graveyard(self._hand.remove_card(0))
         while(self._hand.get_size() != 5):
@@ -80,5 +91,6 @@ class Player:
         print("Player " + self.get_name() + " - " + str(self.get_honor()) + " honor")
         print(str(self._hand.get_size()) + " cards in hand")
         self._hand.print()
+        self._in_play.print()
         if(is_print_full):
             print(str(self.get_runes()) + " runes; " + str(self.get_power()) + " power")

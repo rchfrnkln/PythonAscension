@@ -73,10 +73,15 @@ def print_status():
 
 def cast_card():
     index = Utility.read_int("Enter the index of a card to cast it: ")
-    card = get_current_player().get_card_from_hand(index)
-    if(card.cast() == True):
-        return
-    get_current_player().add_card_to_graveyard(card)    
+    card = get_current_player().remove_card_from_hand(index)
+    try:
+        result = card.cast()
+        if(result == True):
+            return
+        get_current_player().add_card_to_graveyard(card)
+    except Exception as e:
+        get_current_player().add_card_to_hand(card, index)
+        raise e
 
 def acquire_card():
     index = Utility.read_int("Enter the index of a card to acquire: ")
@@ -114,6 +119,13 @@ def banish_cards_from_hand(num):
         get_current_player().print_hand()
         index = Utility.read_int("Enter the index of card banish: ")
         get_current_player().banish_card_from_hand(index)
+
+def defeat_monster_with_cost(cost):
+    index = Utility.read_int("Enter the index of a Monster with power " + str(cost) + " or less: ")
+    card = get_game_board().get_card(index)
+    if(has_enough_resource(card, cost) == False):
+        raise Exception("Can't defeat")
+    get_game_board().defeat_card(index)
 
 '''
 Helper Functions
